@@ -1,6 +1,6 @@
 .breadTop {
     position: relative;
-    height: 35%;
+    height:50%;
     width: 45%;
     background: rgb(240, 142, 74);
     background: linear-gradient(180deg, rgba(240, 142, 74, 1) 13%, rgba(226, 123, 54, 1) 74%);
@@ -97,4 +97,13 @@
     border-radius: 5px;
     transform:rotate(20deg);
     box-shadow: inset -2px 2px #c9c9c9,inset -2px -3px #c9c9c9;
+}
+
+@media (max-width:500px){
+    .breadTop,.breadBottom{
+        width: 80%;
+    }
+    .breadBottom{
+        height: 20%;
+    }
 }
