@@ -1,0 +1,56 @@
+.container {
+    width: 80%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    margin: 15px auto;
+    align-items: center;
+}
+
+.label {
+    width: 100px;
+    text-align: left;
+    text-transform: uppercase;
+    font: inherit;
+    font-weight: bold;
+}
+
+.container button {
+    width: 100px;
+    padding: 5px 0;
+    outline: none;
+    font: inherit;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+.less {
+    border: 0.5px solid black;
+    background: transparent;
+}
+
+.less:disabled {
+    background-color: #e9d79b;
+    cursor: not-allowed;
+}
+
+.more {
+    background: #a33141;
+    border: none;
+}
+
+.more:disabled {
+    background: #b55a66;
+    cursor: not-allowed;
+}
+
+.less:hover,
+.less:active {
+    background-color:#be9d31;
+}
+.more:hover,
+.more:active {
+    background-color:#922c3a
+    ;
+}

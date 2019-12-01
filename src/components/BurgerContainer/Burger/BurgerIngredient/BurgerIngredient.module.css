@@ -1,7 +1,7 @@
 .breadTop {
     position: relative;
-    height:50%;
-    width: 45%;
+    height:  30%;
+    width: 80%;
     background: rgb(240, 142, 74);
     background: linear-gradient(180deg, rgba(240, 142, 74, 1) 13%, rgba(226, 123, 54, 1) 74%);
     margin: 10px auto;
@@ -10,8 +10,8 @@
 }
 
 .breadBottom {
-    height: 25%;
-    width: 45%;
+    height: 13%;
+    width: 80%;
     background: rgb(240, 142, 74);
     background: linear-gradient(180deg, rgba(240, 142, 74, 1) 13%, rgba(226, 123, 54, 1) 74%);
     margin: 10px auto;
@@ -22,13 +22,13 @@
 .tomato {
     background-color: #EC2627;
     height: 4%;
-    width: 45%;
+    width: 75%;
     margin: 4px auto;
 }
 
 .salad {
     height: 6%;
-    width: 50%;
+    width: 80%;
     background: rgb(62, 198, 87);
     background: linear-gradient(180deg, rgba(62, 198, 87, 1) 13%, rgba(88, 226, 54, 1) 74%);
     margin: 4px auto;
@@ -37,9 +37,9 @@
 
 .cheese {
     height: 6%;
-    width: 60%;
+    width:90%;
     background: #e6e600;
-    margin: 5px auto;
+    margin: 4px auto;
     border-radius: 10px;
 }
 
@@ -47,22 +47,23 @@
     background: rgb(148, 37, 37);
     background: linear-gradient(180deg, rgba(148, 37, 37, 1) 13%, rgba(165, 42, 42, 1) 74%);
     height: 10%;
-    width: 45%;
+    width: 72%;
     margin: 5px auto;
     border-radius: 20px;
 }
 
 .seed1 {
-    width: 15%;
+    width: 5%;
     height: 15%;
     background-color: #fff;
     position: absolute;
     top: 60%;
     left: 5%;
     border-radius: 5px;
-    transform:rotate(-20deg);
-    box-shadow: inset -2px 2px #c9c9c9,inset -2px -3px #c9c9c9;
+    transform: rotate(-20deg);
+    box-shadow: inset -2px 2px #c9c9c9, inset -2px -3px #c9c9c9;
 }
+
 .seed1:after {
     content: "";
     width: 100%;
@@ -70,22 +71,24 @@
     background-color: #fff;
     position: absolute;
     top: 20%;
-    left:120%;
+    left: 120%;
     border-radius: 5px;
-    transform:rotate(50deg);
+    transform: rotate(50deg);
     box-shadow: inset -1px 2px #c9c9c9;
 }
+
 .seed2 {
-    width: 15%;
+    width: 5%;
     height: 15%;
     background-color: #fff;
     position: absolute;
     top: 60%;
     left: 75%;
     border-radius: 5px;
-    transform:rotate(-40deg);
-    box-shadow: inset -2px 2px #c9c9c9,inset -2px -3px #c9c9c9;
+    transform: rotate(-40deg);
+    box-shadow: inset -2px 2px #c9c9c9, inset -2px -3px #c9c9c9;
 }
+
 .seed2::before {
     content: "";
     width: 90%;
@@ -95,18 +98,12 @@
     top: -500%;
     left: -120%;
     border-radius: 5px;
-    transform:rotate(20deg);
-    box-shadow: inset -2px 2px #c9c9c9,inset -2px -3px #c9c9c9;
+    transform: rotate(20deg);
+    box-shadow: inset -2px 2px #c9c9c9, inset -2px -3px #c9c9c9;
 }
-
-@media (max-width:500px){
-    .breadTop,.breadBottom{
-        width: 80%;
-    }
-    .breadBottom{
+/* 
+@media (max-width:500px) {
+    .breadTop{
         height: 20%;
     }
-    .breadTop{
-        height: 35%;
-    }
-}
+} */

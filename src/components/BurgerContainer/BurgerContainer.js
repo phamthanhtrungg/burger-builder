@@ -5,6 +5,7 @@ import Burger from './Burger/Burger';
 import axios from '../../axios-instance';
 import withErrorHandler from '../withErrorHandler/withErrorHandler';
 import Spinner from '../UI/Spinner/Spinner';
+import BuildControls from './BurgerControls/BuildControls';
 
 class BurgerContainer extends Component {
     state = {
@@ -28,7 +29,7 @@ class BurgerContainer extends Component {
         return (
             <Wrapper>
                 {burger}
-                <div>Build control</div>
+                <BuildControls />
             </Wrapper>
         )
     }
