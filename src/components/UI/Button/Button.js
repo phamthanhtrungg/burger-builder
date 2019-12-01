@@ -1,17 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import classes from './Button.module.css';
 
-export const Button = (props) => {
-    let modifiedClasses = [classes.container, classes.success].join(' ');
-
+const Button = (props) => {
     return (
-        <div className={classes.container}>
+        <button className={classes.orderButton}>
             {props.children}
-        </div>
+        </button>
     )
 }
 
-Button.propTypes = {
-    type: PropTypes.string.isRequired
-}
+export default Button;
