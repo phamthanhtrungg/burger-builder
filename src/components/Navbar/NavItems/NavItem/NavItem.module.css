@@ -1,0 +1,35 @@
+.navItem {
+    height: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+.navItem a {
+    display: block;
+    text-decoration: none;
+    color: red;
+    font-size: 18px;
+    height: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+    border-bottom: 2px solid transparent;
+}
+
+.navItem a:hover,
+.navItem a:active,
+.navItem a.active {
+    color: #40A4C8;
+    background-color: #c7d0d8;
+    border-bottom-color: #4559f3;
+}
+
+@media(max-width:500px) {
+    .navItem {
+        height: auto;
+        display: block;
+        width: 100%;
+    }
+
+
+}
