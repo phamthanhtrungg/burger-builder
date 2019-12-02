@@ -1,13 +1,15 @@
 import React from 'react'
+
 import classes from './layout.module.css';
 import Wrapper from '../wrapper/wrapper';
+import Navbar from '../Navbar/Navbar';
 
 export default function layout(props) {
     return (
         <Wrapper>
-            <div>nav bar ,side bar, logo</div>
+            <Navbar />
             <main className={classes.container}>
-               {props.children}
+                {props.children}
             </main>
         </Wrapper>
     )

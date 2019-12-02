@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../UI/Button/Button';
 import classes from './BuildControls.module.css';
 import BuildControl from './BuildControl/BuildControl';
 
@@ -16,17 +15,27 @@ const BuildControls = (props) => {
                 disabledInfo={props.disabledInfo[igKey]}
             />
         });
+    let totalPrice = 0;
+    for (let key in props.ingredients) {
+        totalPrice += props.ingredients[key].price * props.ingredients[key].amount;
+    }
     return (
         <div className={classes.container}>
+            <span>Total: <strong>{totalPrice}</strong></span>
             {buildcontrols}
-            <Button>ORDER NOW</Button>
-        </div>
+            <button
+                className={classes.orderButton}
+                disabled={totalPrice === 0}
+                onClick={props.toggleOnOrderHandler}
+            >ORDER NOW</button>
+        </div >
     )
 }
 BuildControls.propTypes = {
     ingredients: PropTypes.object.isRequired,
     addIngredientsHandler: PropTypes.func.isRequired,
     removeIngredientsHandler: PropTypes.func.isRequired,
-    disabledInfo: PropTypes.object.isRequired
+    disabledInfo: PropTypes.object.isRequired,
+    toggleOnOrderHandler: PropTypes.func.isRequired
 }
 export default BuildControls;

@@ -1,41 +1,19 @@
-.orderButton {
-    background-color: #DAD735;
+.button {
+    background-color: transparent;
+    border: none;
+    color: white;
     outline: none;
     cursor: pointer;
-    border: 1px solid #966909;
-    color: #966909;
-    font-family: inherit;
-    font-size: 1.2em;
-    padding: 15px 30px;
-    box-shadow: 2px 2px 2px #966909;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
 }
 
-
-.orderButton:hover, .orderButton:active {
-    background-color: #A0DB41;
-    border: 1px solid #966909;
-    color: #966909;
+.success {
+    color: #5C9210;
 }
 
-.orderButton:disabled {
-    background-color: #C7C6C6;
-    cursor: not-allowed;
-    border: 1px solid #ccc;
-    color: #888888;
-}
-
-.orderButton:not(:disabled){
-    animation: enabled 0.5 linear;
-}
-@keyframes enabled {
-    0% {
-        transform: scale(0.5);
-    }
-
-    25% {
-        transform: scale(1.1);
-    }
-    100%{
-        transform: scale(0);
-    }
+.danger {
+    color: #944317;
 }
