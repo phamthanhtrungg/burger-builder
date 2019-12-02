@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Wrapper from '../wrapper/wrapper';
 import Burger from './Burger/Burger';
@@ -13,9 +14,11 @@ class BurgerContainer extends Component {
     state = {
         ingredients: null,
         error: null,
-        ordering: false
+        ordering: false,
+        totalPrice: 0
     }
     componentDidMount() {
+        console.log(this.props);
         axios.get('/ingredients.json')
             .then(res => {
                 this.setState({ ingredients: res.data });
@@ -29,9 +32,12 @@ class BurgerContainer extends Component {
         const updatedCount = this.state.ingredients[type].amount + 1;
         let updatedIngredients = { ...this.state.ingredients };
         updatedIngredients[type].amount = updatedCount;
-        this.setState({ ingredients: updatedIngredients });
+        let price = this.state.totalPrice + updatedIngredients[type].price;
+        this.setState({ ingredients: updatedIngredients, totalPrice: price });
+      
     }
     removeIngredientsHandler = (type) => {
+        console.log(this.state);
         const updatedCount = this.state.ingredients[type].amount;
         if (updatedCount <= 0) {
             return;
@@ -50,8 +56,16 @@ class BurgerContainer extends Component {
     }
     //#endregion
     //#region Continue purchase
-    continuePurchaseHandler=()=>{
-        alert('Clicked continue');
+    continuePurchaseHandler = () => {
+        const params = [];
+        for (let key in this.state.ingredients) {
+            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key].amount));
+        }
+        params.push('price=' + encodeURIComponent(this.state.totalPrice));
+        this.props.history.push({
+            pathname: '/check-out',
+            search: "?" + params.join('&')
+        });
     }
     //#endregion
     render() {
@@ -89,4 +103,4 @@ class BurgerContainer extends Component {
     }
 }
 
-export default withErrorHandler(BurgerContainer, axios);
+export default withRouter(withErrorHandler(BurgerContainer, axios));
