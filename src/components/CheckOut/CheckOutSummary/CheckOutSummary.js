@@ -7,9 +7,8 @@ import Button from '../../UI/Button/Button';
 const CheckOutSummary = props => {
     return (
         <div>
-            <div style={{ height: '350px', width: '70%', margin: 'auto' }}>
-                <Burger ingredients={props.ingredients} />
-            </div>
+
+            <Burger ingredients={props.ingredients} />
             <div style={{ margin: 'auto', alignItems: 'center', display: 'flex', justifyContent: 'space-around' }}>
                 <Button btnType="danger" click={props.cancelHandler}>CANCEL</Button>
                 <Button btnType="success"

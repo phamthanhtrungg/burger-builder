@@ -7,7 +7,7 @@ const NavItems = () => {
     return (
         <ul className={classes.container}>
             <NavItem  href="/">Burger Builder</NavItem>
-            <NavItem href="/check-out">Check Out</NavItem>
+            <NavItem href="/orders">Orders</NavItem>
         </ul>
     )
 }
