@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash';
 
 import classes from './ContactData.module.css';
 import axios from '../../../axios-instance';
@@ -62,13 +63,16 @@ class ContactData extends Component {
     }
     //#region  onChange for input handler
     inputOnChangeHandler = (e) => {
-        console.log(`value: ${e.target.value} name: ${e.target.name}`);
+        const orderForm = _.clone(this.state.orderForm);
+        orderForm[e.target.name].value = e.target.value;
+        this.setState({ orderForm: orderForm });
     }
     //#endregion
     //#region submit order
     submitOrderHandler = (e) => {
         e.preventDefault();
         this.setState({ isSending: true })
+        const orderForm=_.clone(this.state.orderForm);
         const order = {
             name: 'Phạm Thành Trung',
             address: {
@@ -78,15 +82,15 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             totalPrice: this.props.totalPrice
         }
-        axios.post('orders.json', order)
-            .then(res => {
-                this.setState({ isSending: false });
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                this.setState({ isSending: false });
-                this.props.history.push('/');
-            })
+        // axios.post('orders.json', order)
+        //     .then(res => {
+        //         this.setState({ isSending: false });
+        //         this.props.history.push('/');
+        //     })
+        //     .catch(err => {
+        //         this.setState({ isSending: false });
+        //         this.props.history.push('/');
+        //     })
     }
     //#endregion
     render() {
@@ -115,7 +119,7 @@ class ContactData extends Component {
         }
         return (
             <div className={classes.container}>
-                <h2>Your Concact Data</h2>
+                <h2>Your Contact Data</h2>
                 {form}
             </div>
         );
