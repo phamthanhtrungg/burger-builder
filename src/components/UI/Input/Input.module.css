@@ -1,0 +1,18 @@
+.container {
+    width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+
+.inputElement {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border:1px solid #ccc;
+    font-size: inherit;
+    box-sizing: border-box;
+}
+.inputElement:focus{
+    background-color:#ccc;
+    outline:none;
+}
