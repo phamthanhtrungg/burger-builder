@@ -8,11 +8,17 @@
     width: 100%;
     padding: 10px;
     outline: none;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
     font-size: inherit;
     box-sizing: border-box;
 }
-.inputElement:focus{
-    background-color:#ccc;
-    outline:none;
+
+.inputElement:focus {
+    background-color: #ccc;
+    outline: none;
+}
+
+.error {
+    border: 2px solid red;
+    color: red;
 }

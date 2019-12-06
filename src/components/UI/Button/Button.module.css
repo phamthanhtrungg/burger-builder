@@ -10,7 +10,10 @@
     margin: 10px;
     font-weight: bold;
 }
-
+.button:disabled{
+    color:#ccc;
+    cursor: not-allowed;
+}
 .success {
     color: #5C9210;
 }

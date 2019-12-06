@@ -5,21 +5,31 @@ import classes from './Input.module.css';
 
 const Input = props => {
     let inputElement = null;
+    let classWithError = [classes.inputElement].join(' ');
+    if (props.invalid && props.focused)
+        classWithError = [classes.inputElement, classes.error].join(' ');
     switch (props.elementType) {
         case 'input':
-            inputElement = <input onChange={props.inputOnChange}
-                className={classes.inputElement}
+            inputElement = <input
+                onChange={props.inputOnChange}
+                className={classWithError}
                 {...props.elementConfig}
                 value={props.value} />
             break;
         case 'textarea':
-            inputElement = <textarea onChange={props.inputOnChange}
-                className={classes.inputElement}
+            inputElement = <textarea
+                onChange={props.inputOnChange}
+                className={classWithError}
                 {...props.elementConfig}
                 value={props.value} />
             break;
         case 'select':
-            inputElement = <select className={classes.inputElement} onChange={props.inputOnChange}>
+            inputElement = <select
+                className={classWithError}
+                onChange={props.inputOnChange}
+                {...props.elementConfig}
+                defaultValue={props.elementConfig.options[0].value}
+                >
                 {props.elementConfig.options.map(key => {
                     return <option key={key.value} value={key.value}>{key.displayName}</option>
                 })}
@@ -27,7 +37,7 @@ const Input = props => {
             break;
         default:
             inputElement = <input onChange={props.inputOnChange}
-                className={classes.inputElement}
+                className={classWithError}
                 {...props.elementConfig}
                 value={props.value} />
             break;
@@ -41,8 +51,9 @@ const Input = props => {
 }
 
 Input.propTypes = {
-    inputtype: PropTypes.string.isRequired,
-    inputOnChange: PropTypes.func.isRequired
+    inputOnChange: PropTypes.func.isRequired,
+    invalid: PropTypes.bool.isRequired,
+    focused: PropTypes.bool.isRequired
 }
 
 export default Input

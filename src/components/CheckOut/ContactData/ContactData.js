@@ -18,7 +18,10 @@ class ContactData extends Component {
                     placeholder: 'Your name',
                     name: 'name'
                 },
-                value: ''
+                value: '',
+                validation: { required: true, min: 3 },
+                valid: false,
+                touched: false
             },
             email: {
                 elementType: 'input',
@@ -27,7 +30,10 @@ class ContactData extends Component {
                     placeholder: 'Your e-mail',
                     name: 'email'
                 },
-                value: ''
+                value: '',
+                validation: { required: true, min: 3 },
+                valid: false,
+                touched: false
             },
             phone: {
                 elementType: 'input',
@@ -36,7 +42,10 @@ class ContactData extends Component {
                     placeholder: 'Your phone',
                     name: 'phone'
                 },
-                value: ''
+                value: '',
+                validation: { required: true, pattern: /^0[0-9]{9}$/ },
+                valid: false,
+                touched: false
             },
             country: {
                 elementType: 'input',
@@ -45,7 +54,10 @@ class ContactData extends Component {
                     placeholder: 'Your country',
                     name: 'country'
                 },
-                value: ''
+                value: '',
+                validation: { required: true, min: 3 },
+                valid: false,
+                touched: false
             },
             deliveryMethods: {
                 elementType: 'select',
@@ -53,53 +65,71 @@ class ContactData extends Component {
                     options: [{ value: 'fastest', displayName: 'Fastest' }, { value: 'cheapest', displayName: 'Cheapest' }],
                     name: 'deliveryMethods'
                 },
-                value: ''
+                value: '',
+                validation: { required: true },
+                valid: false,
+                touched: false
             }
         },
         isSending: false
     }
-    componentDidMount() {
-        console.log(this.state);
+
+    //#region  Input Handlers
+    validationHandler = (value, rules) => {
+        let valid = true;
+        if (rules.required) {
+            valid = value.length > 0 && valid;
+        }
+        if (rules.pattern) {
+            var regex = new RegExp(rules.pattern);
+            valid = regex.test(value) && valid;
+        }
+        if (rules.min) {
+            valid = value.length >= rules.min && valid;
+        }
+        if (rules.max) {
+            valid = value.length <= rules.max && valid;
+        }
+        return valid;
     }
-    //#region  onChange for input handler
+
     inputOnChangeHandler = (e) => {
         const orderForm = _.clone(this.state.orderForm);
         orderForm[e.target.name].value = e.target.value;
+        orderForm[e.target.name].touched = true;
+        orderForm[e.target.name].valid = this.validationHandler(e.target.value, orderForm[e.target.name].validation);
         this.setState({ orderForm: orderForm });
     }
+
     //#endregion
     //#region submit order
     submitOrderHandler = (e) => {
         e.preventDefault();
-        this.setState({ isSending: true })
-        const orderForm=_.clone(this.state.orderForm);
-        const order = {
-            name: 'Phạm Thành Trung',
-            address: {
-                country: 'Việt nam',
-                province: 'Đồng Nai'
-            },
-            ingredients: this.props.ingredients,
-            totalPrice: this.props.totalPrice
+        this.setState({ isSending: true });
+        let orderData = {};
+        for (let key in this.state.orderForm) {
+            orderData[key] = this.state.orderForm[key].value;
         }
-        // axios.post('orders.json', order)
-        //     .then(res => {
-        //         this.setState({ isSending: false });
-        //         this.props.history.push('/');
-        //     })
-        //     .catch(err => {
-        //         this.setState({ isSending: false });
-        //         this.props.history.push('/');
-        //     })
+        axios.post('orders.json', orderData)
+            .then(res => {
+                this.setState({ isSending: false });
+                this.props.history.push('/');
+            })
+            .catch(err => {
+                this.setState({ isSending: false });
+                this.props.history.push('/');
+            })
     }
     //#endregion
     render() {
         let formElements = [];
+        let btnDisabled = false;
         for (let key in this.state.orderForm) {
             formElements.push({
                 id: key,
                 config: this.state.orderForm[key]
             });
+            btnDisabled = this.state.orderForm[key].valid
         }
         let form = <Spinner />
         if (!this.state.isSending) {
@@ -111,9 +141,11 @@ class ContactData extends Component {
                             elementType={fE.config.elementType}
                             elementConfig={fE.config.elementConfig}
                             value={fE.config.value}
-                            inputOnChange={this.inputOnChangeHandler} />
+                            inputOnChange={this.inputOnChangeHandler}
+                            invalid={!fE.config.valid}
+                            focused={fE.config.touched} />
                     })}
-                    <Button type="submit">submit</Button>
+                    <Button disabled={!btnDisabled} type="submit">submit</Button>
                 </form>
             );
         }

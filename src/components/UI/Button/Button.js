@@ -8,13 +8,14 @@ const Button = (props) => {
         btnClass = [classes.button, classes.danger].join(' ')
     }
     return (
-        <button className={btnClass} onClick={props.click}>
+        <button className={btnClass} onClick={props.click} disabled={props.disabled}>
             {props.children}
         </button>
     )
 }
 Button.propsTypes = {
     btnType: PropTypes.string.isRequired,
-    click:PropTypes.func.isRequired
+    click: PropTypes.func.isRequired,
+    disabled: PropTypes.bool
 }
 export default Button;
