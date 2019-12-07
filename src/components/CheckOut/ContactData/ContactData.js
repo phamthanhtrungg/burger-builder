@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import classes from './ContactData.module.css';
 import axios from '../../../axios-instance';
@@ -106,7 +107,9 @@ class ContactData extends Component {
     submitOrderHandler = (e) => {
         e.preventDefault();
         this.setState({ isSending: true });
-        let orderData = {};
+        let orderData = {
+            ingredients: this.props.ingredients
+        };
         for (let key in this.state.orderForm) {
             orderData[key] = this.state.orderForm[key].value;
         }
@@ -163,5 +166,9 @@ ContactData.propTypes = {
     ingredients: PropTypes.object.isRequired,
     totalPrice: PropTypes.number.isRequired
 }
-
-export default ContactData
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients.ingredients
+    }
+}
+export default connect(mapStateToProps)(ContactData);
