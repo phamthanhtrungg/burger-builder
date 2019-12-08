@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as ingredientsAction from '../../redux/action/action';
+import * as Actions from '../../redux/actions/index';
 
 import Wrapper from '../wrapper/wrapper';
 import Burger from './Burger/Burger';
@@ -14,18 +14,11 @@ import OrderSummary from './OrderSummary/OrderSummary';
 
 class BurgerContainer extends Component {
     state = {
-        error: null,
         ordering: false,
         totalPrice: 0
     }
     componentDidMount() {
-        // axios.get('/ingredients.json')
-        //     .then(res => {
-        //         this.setState({ ingredients: res.data });
-        //     })
-        //     .catch(err => {
-        //         this.setState({ error: err.message });
-        //     });
+        this.props.fetchIngredients();
     }
     //#region Add and Remove ingredients
     addIngredientsHandler = (type) => {
@@ -93,12 +86,16 @@ class BurgerContainer extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    return { ingredients: state.ingredients.ingredients }
+    return {
+        ingredients: state.ingredients.ingredients,
+        error: state.ingredients.error
+    }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addIngredients: (igType) => dispatch(ingredientsAction.addIngredient(igType)),
-        removeIngredients: (igType) => dispatch(ingredientsAction.removeIngredient(igType))
+        addIngredients: (igType) => dispatch(Actions.addIngredient(igType)),
+        removeIngredients: (igType) => dispatch(Actions.removeIngredient(igType)),
+        fetchIngredients: () => dispatch(Actions.fetchIngredient())
     }
 }
 

@@ -1,4 +1,4 @@
-import * as actionTypes from '../action/action';
+import * as actionTypes from '../actions/actionTypes';
 import _ from 'lodash';
 
 let initialState = {
@@ -7,7 +7,8 @@ let initialState = {
         meat: { amount: 0, price: 0.5 },
         cheese: { amount: 0, price: 0.5 },
         tomato: { amount: 0, price: 0.5 },
-    }
+    },
+    error: null
 }
 
 export default (state = initialState, action) => {
@@ -33,6 +34,18 @@ export default (state = initialState, action) => {
                         amount: state.ingredients[action.val].amount - 1
                     }
                 }
+            }
+        case actionTypes.SET_INGREDIENT: {
+            return {
+                ...state,
+                ingredients: action.ings
+
+            }
+        }
+        case actionTypes.FETCH_INGREDIENT_FAILED:
+            return {
+                ...state,
+                error:action.error
             }
         default:
             return state

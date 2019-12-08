@@ -3,17 +3,21 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ingredientsReducer from './redux/reducer/ingredients';
+import thunk from 'redux-thunk'
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import ingredientsReducer from './redux/reducers/ingredients';
+import authReducer from './redux/reducers/auth';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
-    ingredients: ingredientsReducer
+    ingredients: ingredientsReducer,
+    auth: authReducer
 });
-const store = createStore(reducer, composeEnhancers(applyMiddleware()));
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 const app = (
     <Provider store={store}>
         <BrowserRouter>

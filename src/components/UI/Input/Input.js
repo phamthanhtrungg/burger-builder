@@ -29,7 +29,7 @@ const Input = props => {
                 onChange={props.inputOnChange}
                 {...props.elementConfig}
                 defaultValue={props.elementConfig.options[0].value}
-                >
+            >
                 {props.elementConfig.options.map(key => {
                     return <option key={key.value} value={key.value}>{key.displayName}</option>
                 })}
@@ -53,7 +53,9 @@ const Input = props => {
 Input.propTypes = {
     inputOnChange: PropTypes.func.isRequired,
     invalid: PropTypes.bool.isRequired,
-    focused: PropTypes.bool.isRequired
+    focused: PropTypes.bool.isRequired,
+    elementType: PropTypes.string.isRequired,
+    elementConfig: PropTypes.object.isRequired
 }
 
 export default Input
