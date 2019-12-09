@@ -44,7 +44,6 @@ class BurgerContainer extends Component {
         else {
             this.props.history.push('/auth');
         }
-        console.log(this.props.isAuthencitated);
     }
     toggleOffOrderModalHandler = () => {
         this.setState({ ordering: false });

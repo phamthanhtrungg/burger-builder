@@ -13,7 +13,6 @@ class Orders extends Component {
     }
     componentDidMount() {
         this.setState({ loading: true })
-        console.log(this.props.authData);
         axios.get(`orders.json?auth=${this.props.authData.token}&orderBy="uid"&equalTo="${this.props.authData.uid}"`)
             .then(res => {
                 let orders = [];
