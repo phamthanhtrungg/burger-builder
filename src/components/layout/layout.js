@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux';
 
 import classes from './layout.module.css';
 import Wrapper from '../wrapper/wrapper';
@@ -15,12 +16,22 @@ const Layout = (props) => {
     }
     return (
         <Wrapper>
-            <SideDrawer show={show} closeSideDrawerHandler={closeSideDrawerHandler} />
-            <Navbar openSideDrawerHandler={openSideDrawerHandler} />
+            <SideDrawer
+                isAuth={props.isAuthenticated}
+                show={show}
+                closeSideDrawerHandler={closeSideDrawerHandler} />
+            <Navbar
+                isAuth={props.isAuthenticated}
+                openSideDrawerHandler={openSideDrawerHandler} />
             <main className={classes.container}>
                 {props.children}
             </main>
         </Wrapper>
     )
 }
-export default Layout;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    }
+}
+export default connect(mapStateToProps)(Layout);

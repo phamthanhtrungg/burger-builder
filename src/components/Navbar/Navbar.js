@@ -13,7 +13,7 @@ const Navbar = props => {
             <Menu click={props.openSideDrawerHandler} />
             <Logo />
             <nav style={{ height: '100%' }}>
-                <NavItems />
+                <NavItems isAuth={props.isAuth}/>
             </nav>
         </div>
     )

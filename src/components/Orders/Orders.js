@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 import Order from './Order/Order';
 import axios from '../../axios-instance';
@@ -13,7 +13,8 @@ class Orders extends Component {
     }
     componentDidMount() {
         this.setState({ loading: true })
-        axios.get('orders.json')
+        console.log(this.props.authData);
+        axios.get(`orders.json?auth=${this.props.authData.token}`)
             .then(res => {
                 let orders = [];
                 for (let key in res.data) {
@@ -30,7 +31,7 @@ class Orders extends Component {
         let orders = <Spinner />
         if (!this.state.loading) {
             orders = this.state.orders.map((value) => {
-                return <Order ingredients={value} key={value.id}/>
+                return <Order ingredients={value} key={value.id} />
             });
         }
         return (
@@ -42,8 +43,10 @@ class Orders extends Component {
 
 }
 
-Orders.propTypes = {
-
+const mapStateToProps = state => {
+    return {
+        authData: state.auth
+    }
 }
 
-export default withError(Orders, axios);
+export default connect(mapStateToProps)(withError(Orders, axios));

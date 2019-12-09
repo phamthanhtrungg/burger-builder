@@ -19,7 +19,7 @@ const SideDrawer = props => {
                 <div style={{ height: '15%' }}>
                     <Logo />
                 </div>
-                <NavItems />
+                <NavItems isAuth={props.isAuth}/>
             </div>
         </Wrapper>
     )

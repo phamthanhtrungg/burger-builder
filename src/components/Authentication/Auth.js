@@ -6,7 +6,7 @@ import * as Actions from '../../redux/actions/index';
 import classes from './Auth.module.css';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
-
+import Spinner from '../UI/Spinner/Spinner';
 
 class Auth extends Component {
     state = {
@@ -67,7 +67,7 @@ class Auth extends Component {
     //#endregion
     onSubmitHandler = (e) => {
         e.preventDefault();
-        this.props.auth(this.state.controls.email.value,this.state.controls.password.value,this.state.isSignUp);
+        this.props.auth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp);
     }
     toggleAuthMode = () => {
         this.setState(prev => {
@@ -86,26 +86,35 @@ class Auth extends Component {
         }
         return (
             <div className={classes.container}>
-                <form onSubmit={this.onSubmitHandler}>
-                    {fields.map(control => {
-                        return <Input key={control.id}
-                            elementType={control.config.elementType}
-                            elementConfig={control.config.elementConfig}
-                            invalid={!control.config.valid}
-                            focused={control.config.touched}
-                            inputOnChange={this.inputOnChangeHandler} />
-                    })}
-                    <Button disabled={!disable} btnType="success">Submit</Button>
-                </form>
+                <label>{this.props.authData.error}</label>
+                {this.props.loading
+                    ? <Spinner />
+                    : <form onSubmit={this.onSubmitHandler}>
+                        {fields.map(control => {
+                            return <Input key={control.id}
+                                elementType={control.config.elementType}
+                                elementConfig={control.config.elementConfig}
+                                invalid={!control.config.valid}
+                                focused={control.config.touched}
+                                inputOnChange={this.inputOnChangeHandler} />
+                        })}
+                        <Button disabled={!disable} btnType="success">Submit</Button>
+                    </form>
+                }
                 <Button btnType="danger" click={this.toggleAuthMode}>Switch to {this.state.isSignUp ? 'Sign In' : 'Sign Up'}</Button>
             </div>
         )
     }
 }
-
+const mapStateToProps = state => {
+    return {
+        authData: state.auth,
+        loading: state.auth.loading
+    }
+}
 const mapDispatchToProps = dispatch => {
     return {
         auth: (email, password, isSignUp) => dispatch(Actions.auth(email, password, isSignUp))
     }
 }
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
