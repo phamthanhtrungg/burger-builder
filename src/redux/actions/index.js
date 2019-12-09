@@ -1,2 +1,2 @@
 export { addIngredient, removeIngredient, fetchIngredient } from './ingredient';
-export { auth, authLogOut } from './auth';
+export { auth, authLogOut,checkAuthState } from './auth';

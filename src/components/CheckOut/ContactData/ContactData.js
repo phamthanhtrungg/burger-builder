@@ -108,12 +108,13 @@ class ContactData extends Component {
         e.preventDefault();
         this.setState({ isSending: true });
         let orderData = {
-            ingredients: this.props.ingredients
+            ingredients: this.props.ingredients,
+            uid: this.props.uid
         };
         for (let key in this.state.orderForm) {
             orderData[key] = this.state.orderForm[key].value;
         }
-        axios.post('orders.json', orderData)
+        axios.post('orders.json?auth=' + this.props.token, orderData)
             .then(res => {
                 this.setState({ isSending: false });
                 this.props.history.push('/');
@@ -164,11 +165,13 @@ class ContactData extends Component {
 
 ContactData.propTypes = {
     ingredients: PropTypes.object.isRequired,
-    totalPrice: PropTypes.number.isRequired
+    totalPrice: PropTypes.number.isRequired,
 }
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients.ingredients
+        ingredients: state.ingredients.ingredients,
+        token: state.auth.token,
+        uid: state.auth.uid
     }
 }
 export default connect(mapStateToProps)(ContactData);

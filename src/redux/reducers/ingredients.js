@@ -7,7 +7,8 @@ let initialState = {
         cheese: { amount: 0, price: 0.5 },
         tomato: { amount: 0, price: 0.5 },
     },
-    error: null
+    error: null,
+    building: false
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +22,8 @@ export default (state = initialState, action) => {
                         ...state.ingredients[action.val],
                         amount: state.ingredients[action.val].amount + 1
                     }
-                }
+                },
+                building: true
             }
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -32,19 +34,20 @@ export default (state = initialState, action) => {
                         ...state.ingredients[action.val],
                         amount: state.ingredients[action.val].amount - 1
                     }
-                }
+                },
+                building: true
             }
         case actionTypes.SET_INGREDIENT: {
             return {
                 ...state,
-                ingredients: action.ings
-
+                ingredients: action.ings,
+                building: false
             }
         }
         case actionTypes.FETCH_INGREDIENT_FAILED:
             return {
                 ...state,
-                error:action.error
+                error: action.error
             }
         default:
             return state

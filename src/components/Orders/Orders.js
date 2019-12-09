@@ -14,7 +14,7 @@ class Orders extends Component {
     componentDidMount() {
         this.setState({ loading: true })
         console.log(this.props.authData);
-        axios.get(`orders.json?auth=${this.props.authData.token}`)
+        axios.get(`orders.json?auth=${this.props.authData.token}&orderBy="uid"&equalTo="${this.props.authData.uid}"`)
             .then(res => {
                 let orders = [];
                 for (let key in res.data) {
@@ -45,7 +45,7 @@ class Orders extends Component {
 
 const mapStateToProps = state => {
     return {
-        authData: state.auth
+        authData: state.auth,
     }
 }
 

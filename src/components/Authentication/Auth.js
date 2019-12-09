@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import * as Actions from '../../redux/actions/index';
+
 
 import classes from './Auth.module.css';
 import Button from '../UI/Button/Button';
@@ -84,8 +87,15 @@ class Auth extends Component {
             });
             disable = this.state.controls[key].valid
         }
+        let redirect = null;
+        if (this.props.isAuthenticated && !this.props.building) {
+            redirect = <Redirect to="/" />
+        } else if (this.props.isAuthenticated && this.props.building) {
+            redirect = <Redirect to="/check-out" />
+        }
         return (
             <div className={classes.container}>
+                {redirect}
                 <label>{this.props.authData.error}</label>
                 {this.props.loading
                     ? <Spinner />
@@ -109,7 +119,9 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         authData: state.auth,
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        isAuthenticated: state.auth.token !== null,
+        building: state.ingredients.building
     }
 }
 const mapDispatchToProps = dispatch => {

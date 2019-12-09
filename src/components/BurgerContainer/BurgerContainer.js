@@ -38,7 +38,13 @@ class BurgerContainer extends Component {
     //#endregion
     //#region Show modal when hitting OrderNow button
     toggleOnOrderModalHandler = () => {
-        this.setState({ ordering: true });
+        if (this.props.isAuthencitated) {
+            this.setState({ ordering: true });
+        }
+        else {
+            this.props.history.push('/auth');
+        }
+        console.log(this.props.isAuthencitated);
     }
     toggleOffOrderModalHandler = () => {
         this.setState({ ordering: false });
@@ -74,7 +80,8 @@ class BurgerContainer extends Component {
                         removeIngredientsHandler={this.removeIngredientsHandler}
                         addIngredientsHandler={this.addIngredientsHandler}
                         disabledInfo={disabledInfo}
-                        toggleOnOrderHandler={this.toggleOnOrderModalHandler} />
+                        toggleOnOrderHandler={this.toggleOnOrderModalHandler}
+                        isAuth={this.props.isAuthencitated} />
                 </Wrapper>
             )
         }
@@ -88,7 +95,8 @@ class BurgerContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients.ingredients,
-        error: state.ingredients.error
+        error: state.ingredients.error,
+        isAuthencitated: state.auth.token !== null
     }
 }
 const mapDispatchToProps = dispatch => {
