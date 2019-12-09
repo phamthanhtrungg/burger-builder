@@ -1,6 +1,6 @@
 #demo 
-https://burger-builder-q6fznm3zy.now.sh/
+>https://burger-builder-q6fznm3zy.now.sh/
 
 #run
-npm install 
-npm init 
+* >npm install 
+* >npm start
