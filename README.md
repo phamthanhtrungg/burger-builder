@@ -1,6 +1,6 @@
-# demo 
+# Demo 
 >https://burger-builder.hocsinhtrung.now.sh/
 
-# run
+# Run
 * >npm install 
 * >npm start
